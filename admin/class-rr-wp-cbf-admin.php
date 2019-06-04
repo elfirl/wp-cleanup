@@ -136,4 +136,34 @@ class Rr_Wp_Cbf_Admin {
 		include_once( 'partials/rr-wp-cbf-admin-display.php' );
 	}
 
+	/**
+	 * Saving and Updating
+	 * 
+	 * @since 1.0.0
+	 */
+	public function options_update() {
+		register_setting($this->plugin_name, $this->plugin_name, array($this, 'validate'));
+	}
+
+
+	/**
+	 * Validation for settings page
+	 * 
+	 * @since 1.0.0
+	 */
+	public function validate($input) {
+		// All checkbox inputs
+		$valid = array();
+
+		// Cleanup
+		$valid['cleanup'] = (isset($input['cleanup']) && !empty($input['cleanup'])) ? 1 : 0;
+		$valid['comments_css_cleanup'] = (isset($input['comments_css_cleanup']) && !empty($input['comments_css_cleanup'])) ? 1: 0;
+		$valid['gallery_css_cleanup'] = (isset($input['gallery_css_cleanup']) && !empty($input['gallery_css_cleanup'])) ? 1 : 0;
+		$valid['body_class_slug'] = (isset($input['body_class_slug']) && !empty($input['body_class_slug'])) ? 1 : 0;
+		$valid['jquery_cdn'] = (isset($input['jquery_cdn']) && !empty($input['jquery_cdn'])) ? 1 : 0;
+		$valid['cdn_provider'] = esc_url($input['cdn_provider']);
+
+		return $valid;
+	}
+
 }
