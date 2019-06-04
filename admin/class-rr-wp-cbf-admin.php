@@ -122,7 +122,7 @@ class Rr_Wp_Cbf_Admin {
 	public function add_action_links( $links ) {
 
 		$settings_link = array(
-			'<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __('Settings!', $this->plugin_name) . '</a>',
+			'<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __('Settings', $this->plugin_name) . '</a>',
 		);
 		return array_merge( $settings_link, $links );
 	}
