@@ -73,7 +73,13 @@ class Rr_Wp_Cbf_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/rr-wp-cbf-admin.css', array(), $this->version, 'all' );
+		// wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/rr-wp-cbf-admin.css', array(), $this->version, 'all' );
+
+		if( 'settings_page_rr-wp-cbf' == get_current_screen() -> id ) {
+			// CSS stylesheet for Color Picker
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/rr-wp-cbf-admin.css', array( 'wp-color-picker' ), $this->version, 'all');
+		}
 
 	}
 
@@ -96,7 +102,12 @@ class Rr_Wp_Cbf_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/rr-wp-cbf-admin.js', array( 'jquery' ), $this->version, false );
+		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/rr-wp-cbf-admin.js', array( 'jquery' ), $this->version, false );
+
+		if( 'settings_page_rr-wp-cbf' == get_current_screen() -> id ) {
+			wp_enqueue_media();
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/rr-wp-cbf-admin.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
+		}
 
 	}
 
@@ -162,6 +173,10 @@ class Rr_Wp_Cbf_Admin {
 		$valid['body_class_slug'] = (isset($input['body_class_slug']) && !empty($input['body_class_slug'])) ? 1 : 0;
 		$valid['jquery_cdn'] = (isset($input['jquery_cdn']) && !empty($input['jquery_cdn'])) ? 1 : 0;
 		$valid['cdn_provider'] = esc_url($input['cdn_provider']);
+
+		// Login Customization
+		// First Color Picker
+		
 
 		return $valid;
 	}
